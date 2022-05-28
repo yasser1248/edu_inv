@@ -88,20 +88,31 @@ app_license = "MIT"
 # Override standard doctype classes
 
 # override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
+# 	# "ToDo": "custom_app.overrides.CustomToDo"
+# 	"Fees": "edu_inv.education_fee_invoice.edu_inv.override_fees",
 # }
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Fees": {
+			"on_submit": "edu_inv.education_fee_invoice.edu_inv.make_sales_invoice",
+		},
+	"Student": {
+			"after_insert": "edu_inv.education_fee_invoice.edu_inv.create_customer",
+		},
+	"Fee Category": {
+			"after_insert": "edu_inv.education_fee_invoice.edu_inv.create_item",
+		},
+	# "*": {
+	# 	"on_update": "method",
+	# 	"on_cancel": "method",
+	# 	"on_trash": "method"
+	# },
+
+}
 
 # Scheduled Tasks
 # ---------------
